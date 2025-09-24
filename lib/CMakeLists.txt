@@ -3,6 +3,9 @@
 include(GNUInstallDirs)
 
 ####################
+find_package(PkgConfig REQUIRED)
+pkg_search_module(udev REQUIRED IMPORTED_TARGET libudev)
+
 set(HEADERS
     udev++/device.hpp
     udev++/enumerate.hpp
@@ -18,7 +21,7 @@ set(SOURCES
     udev.cpp
 )
 
-set(DEPENDS )
+set(DEPENDS PkgConfig::udev)
 
 ####################
 set(name ${PROJECT_NAME})
