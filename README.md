@@ -1,8 +1,8 @@
-# libudev++ – a Udev Library for C++
+# udev++ – a Udev Library for C++
 
-The **libudev++** library is a C++ wrapper for
-[libudev](https://www.freedesktop.org/software/systemd/man/libudev.html).
-It enables one to enumerate, monitor and introspect devices on the local system.
+The **udev++** library is a lightweight C++ wrapper for [libudev](https://www.freedesktop.org/software/systemd/man/libudev.html). It allows one to enumerate, monitor and introspect devices on the local system.
+
+See the [Usage](#usage) section below if you are planning to develop applications with **udev++**.
 
 ## Installation
 
@@ -15,76 +15,81 @@ It enables one to enumerate, monitor and introspect devices on the local system.
 Debian/Ubuntu/etc:
 
 ```shell
-$ p=libudev++
-$ v=1.0
-$ wget https://github.com/dimitry-ishenko-cpp/libudevpp/releases/download/v${v}/${p}_${v}_amd64.deb
-$ sudo apt install ./${p}_${v}_amd64.deb
+sudo add-apt-repository ppa:ppa-verse/termin
+sudo apt install libudev++
 ```
 
-Install the development package, if you are planning to develop applications with **libudev++**:
-
+Install the development package, if you are planning to develop applications with **udev++**:
 ```shell
-$ p=libudev++-dev
-$ v=1.0
-$ wget https://github.com/dimitry-ishenko-cpp/libudevpp/releases/download/v${v}/${p}_${v}_amd64.deb
-$ sudo apt install ./${p}_${v}_amd64.deb
+sudo apt install libudev++-dev
 ```
 
 RaspberryPi:
 
 ```shell
-$ p=libudev++
-$ v=1.0
-$ wget https://github.com/dimitry-ishenko-cpp/libudevpp/releases/download/v${v}/${p}_${v}_armhf.deb
-$ sudo apt install ./${p}_${v}_armhf.deb
+sudo add-apt-repository -S deb https://ppa.launchpadcontent.net/ppa-verse/termin/ubuntu jammy main
+sudo apt install libudev++
 ```
 
-Install the development package, if you are planning to develop applications with **libudev++**:
-
+Install the development package, if you are planning to develop applications with **udev++**:
 ```shell
-$ p=libudev++-dev
-$ v=1.0
-$ wget https://github.com/dimitry-ishenko-cpp/libudevpp/releases/download/v${v}/${p}_${v}_armhf.deb
-$ sudo apt install ./${p}_${v}_armhf.deb
+sudo apt install libudev++-dev
 ```
 
 ### From source
 
-Stable version (requires [CMake](https://cmake.org/) >= 3.1):
+Stable version (requires [CMake](https://cmake.org/) >= 3.16):
 
 ```shell
-$ p=libudevpp
-$ v=1.0
-$ wget https://github.com/dimitry-ishenko-cpp/${p}/archive/v${v}.tar.gz
-$ tar xzf v${v}.tar.gz
-$ mkdir ${p}-${v}/build
-$ cd ${p}-${v}/build
-$ cmake ..
-$ make
-$ sudo make install
+p=udev v=1.0
+wget https://github.com/dimitry-ishenko-cpp/${p}/archive/v${v}.tar.gz
+tar xzf v${v}.tar.gz
+mkdir ${p}-${v}/build
+cd ${p}-${v}/build
+cmake ..
+make
+sudo make install
 ```
 
-Latest master (requires [git](https://git-scm.com/) and [CMake](https://cmake.org/) >= 3.1):
+Latest master (requires [git](https://git-scm.com/) and [CMake](https://cmake.org/) >= 3.16):
 
 ```shell
-$ p=libudevpp
-$ git clone --recursive https://github.com/dimitry-ishenko-cpp/${p}.git
-$ mkdir ${p}/build
-$ cd ${p}/build
-$ cmake ..
-$ make
-$ sudo make install
+p=udev
+git clone --recursive https://github.com/dimitry-ishenko-cpp/${p}.git
+mkdir ${p}/build
+cd ${p}/build
+cmake ..
+make
+sudo make install
 ```
 
-## Developing with libudev++
+## Usage
 
-To develop with **libudev++** simply add `#include <udev++.hpp>` to your program
-and `-ludev++` to your linker. Following are a few examples demonstrating its
-capabilities:
+To use **udev++** in your application simply add:
+
+```c++
+#include <udev++.hpp>
+```
+
+to your file(s) and link with `-ludev++`. For [CMake](https://cmake.org/)-based projects use:
+
+```cmake
+find_package(udev++ REQUIRED)
+...
+target_link_libraries(marvin PRIVATE udev++::udev++)
+```
+
+to find the library and link with it. **udev++** additionally exports `udev++::udev++_static` and `udev++::udev++_shared` targets, which you can use to explicitly link with the static and shared versions of the library respectively.
+
+## Description
+
+TODO
+
+Following are a few examples demonstrating its capabilities:
 
 Example #1:
 
-```cpp
+```c++
 auto ctx = udev::udev::instance();
 
 udev::enumerate enumerate{ ctx };
@@ -109,7 +114,7 @@ for(auto const& device : devices)
 ```
 
 Example #2:
-```cpp
+```c++
 auto ctx = udev::udev::instance();
 
 udev::monitor monitor{ ctx };
@@ -162,5 +167,3 @@ for(;;)
 
 This project is distributed under the GNU GPL license. See the
 [LICENSE.md](LICENSE.md) file for details.
-
-## Acknowledgments
