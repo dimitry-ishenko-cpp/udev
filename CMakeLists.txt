@@ -1,88 +1,14 @@
-cmake_minimum_required(VERSION 3.1)
-project(libudev++ VERSION 1.0)
+cmake_minimum_required(VERSION 3.16) # focal
+project(udev++ VERSION 1.0)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(HEADERS
-    device.hpp
-    enumerate.hpp
-    monitor.hpp
-    udev.hpp
-)
-set(OVERALL_HEADER udev++.hpp)
+add_subdirectory(lib)
 
-set(SOURCES
-    device.cpp
-    enumerate.cpp
-    monitor.cpp
-    udev.cpp
-)
-
-include(GNUInstallDirs)
-
-########################
-string(REGEX REPLACE "^lib" "" LIBRARY_NAME ${PROJECT_NAME})
-set(PROJECT_NAME_DEV ${PROJECT_NAME}-dev)
-set(CMAKE_INSTALL_DOCDIR_DEV ${CMAKE_INSTALL_DATAROOTDIR}/doc/${PROJECT_NAME_DEV})
-
-# shared library
-add_library(shared SHARED ${HEADERS} ${SOURCES})
-set_target_properties(shared PROPERTIES OUTPUT_NAME ${LIBRARY_NAME})
-set_target_properties(shared PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(shared PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
-
-install(TARGETS shared DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT shared)
-install(FILES LICENSE.md DESTINATION ${CMAKE_INSTALL_DOCDIR} COMPONENT shared)
-
-# static dev library and headers
-add_library(static STATIC ${HEADERS} ${SOURCES})
-set_target_properties(static PROPERTIES OUTPUT_NAME ${LIBRARY_NAME})
-
-install(TARGETS static DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT static)
-install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_NAME} COMPONENT static)
-install(FILES ${OVERALL_HEADER} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT static)
-install(FILES LICENSE.md README.md DESTINATION ${CMAKE_INSTALL_DOCDIR_DEV} COMPONENT static)
-
-########################
-# package
-set(CPACK_STRIP_FILES ON)
-set(CPACK_GENERATOR DEB)
-
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY
-    "libudev++: Udev Library for C++."
-)
-set(CPACK_PACKAGE_DESCRIPTION
-    "The libudev++ library is a C++ wrapper for libudev. It enables one to
-enumerate, monitor and introspect devices on the local system."
-)
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER
-    "Dimitry Ishenko <dimitry (dot) ishenko (at) (gee) mail (dot) com>"
-)
-set(CPACK_DEBIAN_FILE_NAME DEB-DEFAULT)
-set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
-
-set(CPACK_DEB_COMPONENT_INSTALL ON)
-
-set(CPACK_DEBIAN_SHARED_PACKAGE_NAME ${PROJECT_NAME})
-set(CPACK_DEBIAN_SHARED_PACKAGE_DEPENDS "libudev1")
-set(CPACK_DEBIAN_SHARED_PACKAGE_SHLIBDEPS ON)
-
-set(CPACK_DEBIAN_STATIC_PACKAGE_NAME ${PROJECT_NAME_DEV})
-set(CPACK_DEBIAN_STATIC_PACKAGE_DEPENDS
-    "${CPACK_DEBIAN_SHARED_PACKAGE_NAME} (= ${PROJECT_VERSION})"
-)
-
-# source
-set(CPACK_SOURCE_GENERATOR TBZ2 ZIP)
-set(CPACK_SOURCE_PACKAGE_FILE_NAME ${PROJECT_NAME}-${PROJECT_VERSION})
-set(CPACK_SOURCE_IGNORE_FILES /\.git.*;/build.*;\.user$;/\.vscode.*)
-
-include(CPack)
-cpack_add_component(shared DESCRIPTION "${CPACK_PACKAGE_DESCRIPTION}")
-cpack_add_component(static DESCRIPTION "${CPACK_PACKAGE_DESCRIPTION}
--
-This package contains headers and static libraries needed for development."
-)
+#option(BUILD_EXAMPLES "Build examples" ON)
+#if(BUILD_EXAMPLES)
+#    add_subdirectory(example)
+#endif()

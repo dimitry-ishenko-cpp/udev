@@ -5,7 +5,7 @@
 // Distributed under the GNU GPL license. See the LICENSE.md file for details.
 
 ////////////////////////////////////////////////////////////////////////////////
-#include "udev.hpp"
+#include "udev++/udev.hpp"
 
 #include <cerrno>
 #include <system_error>

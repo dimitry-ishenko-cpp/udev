@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/@name@Targets.cmake")
+
+if (NOT TARGET @name@::@name@ AND TARGET @name@::@name@_shared)
+    add_library(@name@::@name@ ALIAS @name@::@name@_shared)
+endif()
+
+check_required_components(@name@)
