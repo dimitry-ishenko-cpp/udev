@@ -43,7 +43,7 @@ namespace udev
 ////////////////////////////////////////////////////////////////////////////////
 monitor::monitor(udev ctx) :
     udev_{ std::move(ctx) },
-    mon_{ impl::udev_monitor_new_from_netlink(udev_.get(), "udev::monitor") }
+    mon_{ impl::udev_monitor_new_from_netlink(udev_.get(), "udev") }
 {
     if(!mon_) throw std::system_error{
         std::error_code{ errno, std::generic_category() }
