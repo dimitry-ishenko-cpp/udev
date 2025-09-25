@@ -1,5 +1,12 @@
-udev++ (1.0) UNRELEASED; urgency=medium
+udev++ (2.0) unstable; urgency=medium
 
-  * Initial release.
+  * Update README.md
+  * d/rules: skip examples
+  * Add examples
+  * udev::monitor: fix name
+  * Add Debian packaging
+  * Update README.md
+  * Explicit dependency on libudev
+  * Restructure the project
 
- -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Wed, 24 Sep 2025 20:18:42 -0400
+ -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Wed, 24 Sep 2025 22:04:57 -0400
