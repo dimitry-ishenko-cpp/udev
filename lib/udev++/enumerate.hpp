@@ -20,7 +20,7 @@ namespace impl
 {
 
 struct udev_enumerate;
-struct enumerate_delete { void operator()(udev_enumerate*); };
+struct enumerate_deleter { void operator()(udev_enumerate*); };
 
 }
 
@@ -64,7 +64,7 @@ public:
 
 private:
     udev udev_;
-    std::unique_ptr<impl::udev_enumerate, impl::enumerate_delete> enum_;
+    std::unique_ptr<impl::udev_enumerate, impl::enumerate_deleter> enum_;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
