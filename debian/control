@@ -1,0 +1,38 @@
+Source: udev++
+Section: admin
+Priority: optional
+Maintainer: Dimitry Ishenko <dimitry.ishenko@gmail.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ cmake (>= 3.16),
+ libudev-dev,
+ pkgconf,
+Standards-Version: 4.6.2
+Homepage: https://github.com/dimitry-ishenko-cpp/udev
+Vcs-Browser: https://github.com/dimitry-ishenko-cpp/udev
+Vcs-Git: https://github.com/dimitry-ishenko-cpp/udev.git
+Rules-Requires-Root: no
+
+Package: libudev++
+Section: libs
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: udev++ – a Udev Library for C++
+ The udev++ library is a lightweight C++ wrapper for libudev. It allows one to
+ enumerate, monitor and introspect devices on the local system.
+ .
+ This package contains the shared library.
+
+Package: libudev++-dev
+Section: libdevel
+Architecture: any
+Depends:
+ ${misc:Depends},
+ libudev++ (= ${binary:Version}),
+Description: libudev++ – an OSC Library for C++
+ The udev++ library is a lightweight C++ wrapper for libudev. It allows one to
+ enumerate, monitor and introspect devices on the local system.
+ .
+ This package contains development files.
