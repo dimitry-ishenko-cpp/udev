@@ -19,7 +19,7 @@ namespace impl
 // move udev stuff into impl namespace
 #include <libudev.h>
 
-void monitor_delete::operator()(udev_monitor* x) { udev_monitor_unref(x); }
+void monitor_deleter::operator()(udev_monitor* x) { udev_monitor_unref(x); }
 
 }
 
