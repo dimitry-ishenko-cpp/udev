@@ -16,7 +16,7 @@ namespace impl
 {
 
 struct udev;
-struct udev_delete { void operator()(udev*); };
+struct udev_deleter { void operator()(udev*); };
 
 }
 
@@ -45,7 +45,7 @@ public:
     static udev instance();
 
 private:
-    std::unique_ptr<impl::udev, impl::udev_delete> udev_;
+    std::unique_ptr<impl::udev, impl::udev_deleter> udev_;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

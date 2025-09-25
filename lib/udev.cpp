@@ -17,7 +17,7 @@ namespace impl
 // move udev stuff into impl namespace
 #include <libudev.h>
 
-void udev_delete::operator()(udev* x) { udev_unref(x); }
+void udev_deleter::operator()(udev* x) { udev_unref(x); }
 
 }
 
