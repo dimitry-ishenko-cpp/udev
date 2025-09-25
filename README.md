@@ -83,81 +83,9 @@ to find the library and link with it. **udev++** additionally exports `udev++::u
 
 ## Description
 
-TODO
+_TODO_
 
-Following are a few examples demonstrating its capabilities:
-
-Example #1:
-
-```c++
-auto ctx = udev::udev::instance();
-
-udev::enumerate enumerate{ ctx };
-enumerate.match_subsystem("block");
-
-auto devices = enumerate.get();
-for(auto const& device : devices)
-{
-    using namespace std;
-
-    if(device.type() == "partition" && device.property("ID_BUS") == "ata")
-    {
-        cout << "Found hard disk" << endl
-             << "Path: " << device.syspath() << endl
-             << "Node: " << device.devnode() << endl
-             << "  FS: " << device.property("ID_FS_TYPE") << endl
-             << "Name: " << device.sysname() << endl
-             << "   #: " << device.sysnum () << endl;
-        cout << endl;
-    }
-}
-```
-
-Example #2:
-```c++
-auto ctx = udev::udev::instance();
-
-udev::monitor monitor{ ctx };
-monitor.match_device("block");
-
-for(;;)
-{
-    using namespace std::chrono_literals;
-    using namespace std;
-
-    if(auto device = monitor.try_get_for(30s))
-    {
-        switch(device.action())
-        {
-        case udev::added:
-            if(device.type() == "partition" && device.property("ID_BUS") == "usb")
-            {
-                cout << "USB drive plugged in" << endl
-                     << "Path: " << device.syspath() << endl
-                     << "Node: " << device.devnode() << endl
-                     << "  FS: " << device.property("ID_FS_TYPE") << endl
-                     << "Name: " << device.sysname() << endl
-                     << "   #: " << device.sysnum () << endl;
-                cout << endl;
-            }
-            break;
-
-        case udev::removed:
-            if(device.type() == "partition" && device.property("ID_BUS") == "usb")
-            {
-                cout << "USB drive " << device.devnode() << " unplugged" << endl;
-                cout << endl;
-            }
-            break;
-        }
-    }
-    else
-    {
-        cout << "Nothing seems to be happening" << endl;
-        break;
-    }
-}
-```
+For now check the [example](./example/) directory for usage examples.
 
 ## Authors
 
