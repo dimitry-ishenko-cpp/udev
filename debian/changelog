@@ -1,3 +1,10 @@
+udev++ (3.0.1) unstable; urgency=medium
+
+  * README: fix ppa
+  * Add workflow to build Debian packages
+
+ -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Thu, 25 Sep 2025 21:23:45 -0400
+
 udev++ (3.0) unstable; urgency=medium
 
   * README: fix ppa
