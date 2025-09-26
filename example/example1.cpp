@@ -5,13 +5,10 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    auto ctx = udev::udev::instance();
-
-    udev::enumerate enumerate{ctx};
+    udev::enumerate enumerate;
     enumerate.match_subsystem("block");
 
-    auto devices = enumerate.get();
-    for(auto&& device : devices)
+    for(auto&& device : enumerate.get())
     {
         using namespace std;
 

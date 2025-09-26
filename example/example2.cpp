@@ -6,9 +6,7 @@ using namespace std::chrono_literals;
 
 int main(int argc, char* argv[])
 {
-    auto ctx = udev::udev::instance();
-
-    udev::monitor monitor{ctx};
+    udev::monitor monitor;
     monitor.match_device("block");
 
     for(;;)

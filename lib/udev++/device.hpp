@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2017-2021 Dimitry Ishenko
+// Copyright (c) 2017-2025 Dimitry Ishenko
 // Contact: dimitry (dot) ishenko (at) (gee) mail (dot) com
 //
 // Distributed under the GNU GPL license. See the LICENSE.md file for details.
@@ -9,10 +9,9 @@
 #define UDEV_DEVICE_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
-#include "udev.hpp"
-
 #include <memory>
 #include <string>
+#include <string_view>
 
 namespace impl
 {
@@ -27,58 +26,53 @@ struct device_deleter { void operator()(udev_device*); };
 namespace udev
 {
 
-using std::string;
-
 enum action { added, removed, other };
 
-////////////////////////////////////////////////////////////////////////////////
-// Udev device.
-//
-// Provides access to udev device attributes. Device instances are returned by
-// the enumerate and monitor classes.
-//
+/**
+ * @class udev::device
+ * @brief Represents a udev device.
+ *
+ * Enables access to udev device properties. Instances are obtained from
+ * `enumerate` and `monitor` classes.
+ *
+ * @sa udev::enumerate, udev::monitor
+ */
 class device
 {
 public:
+    ////////////////////
     device() noexcept = default;
 
-    device(const device&) = delete;
-    device(device&& rhs) noexcept = default;
-
-    device& operator=(const device&) = delete;
-    device& operator=(device&& rhs) noexcept = default;
-
+    ////////////////////
     bool is_valid() const noexcept { return !!dev_; }
     explicit operator bool() const noexcept { return is_valid(); }
 
-    device parent() const noexcept;
-    device parent(const string& subsystem, const string& devtype = { }) const noexcept;
+    device parent() const;
+    device parent(std::string_view subsystem, std::string_view devtype = {}) const;
 
-    string subsystem() const noexcept;
-    string   devtype() const noexcept;
-    string   syspath() const noexcept;
-    string   sysname() const noexcept;
-    string    sysnum() const noexcept;
-    string   devnode() const noexcept;
-
-    string property(const string&) const noexcept;
-    string driver() const noexcept;
-    enum action action() const noexcept;
-    string sysattr(const string&) const noexcept;
-    bool has_tag(const string&) const noexcept;
+    std::string subsystem() const noexcept;
+    std::string   devtype() const noexcept;
+    std::string   syspath() const noexcept;
+    std::string   sysname() const noexcept;
+    std::string    sysnum() const noexcept;
+    std::string   devnode() const noexcept;
+    std::string  property(std::string_view) const noexcept;
+    std::string    driver() const noexcept;
+    enum action    action() const noexcept;
+    std::string sysattr(std::string_view) const noexcept;
+    bool has_tag(std::string_view) const noexcept;
 
 private:
-    udev udev_;
+    ////////////////////
     std::unique_ptr<impl::udev_device, impl::device_deleter> dev_;
 
-    device(udev, const string&);
-    device(udev, impl::udev_device* dev) noexcept;
+    explicit device(impl::udev_device* dev) noexcept : dev_{dev} { }
+    device(impl::udev*, std::string_view);
 
     friend class enumerate;
     friend class monitor;
 };
 
-////////////////////////////////////////////////////////////////////////////////
 }
 
 ////////////////////////////////////////////////////////////////////////////////

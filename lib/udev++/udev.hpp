@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Copyright (c) 2017-2021 Dimitry Ishenko
+// Copyright (c) 2017-2025 Dimitry Ishenko
 // Contact: dimitry (dot) ishenko (at) (gee) mail (dot) com
 //
 // Distributed under the GNU GPL license. See the LICENSE.md file for details.
@@ -9,46 +9,44 @@
 #define UDEV_UDEV_HPP
 
 ////////////////////////////////////////////////////////////////////////////////
-#include <memory>
-
-////////////////////////////////////////////////////////////////////////////////
-namespace impl
-{
-
-struct udev;
-struct udev_deleter { void operator()(udev*); };
-
-}
+namespace impl { struct udev; }
 
 ////////////////////////////////////////////////////////////////////////////////
 namespace udev
 {
 
-////////////////////////////////////////////////////////////////////////////////
-// Udev context.
-//
-// Used by the `enumerate` and `monitor` classes to get access to udev.
-//
+/**
+ * @class udev::udev
+ * @brief Manages udev context.
+ *
+ * Provides access to udev functionality for the `enumerate` and `monitor`
+ * classes.
+ *
+ * @sa udev::enumerate, udev::monitor
+ */
 class udev
 {
 public:
-    udev() noexcept = default;
+    ////////////////////
+    udev();
+    ~udev();
 
-    udev(const udev& rhs) noexcept { *this = rhs; }
-    udev(udev&& rhs) noexcept = default;
+    udev(const udev&) noexcept;
+    udev(udev&&) noexcept;
 
-    udev& operator=(const udev&) noexcept;
-    udev& operator=(udev&&) noexcept = default;
+    udev& operator=(udev) noexcept;
 
-    auto get() const noexcept { return udev_.get(); }
-
+    ////////////////////
     static udev instance();
 
 private:
-    std::unique_ptr<impl::udev, impl::udev_deleter> udev_;
+    ////////////////////
+    impl::udev* udev_;
+
+    friend class enumerate;
+    friend class monitor;
 };
 
-////////////////////////////////////////////////////////////////////////////////
 }
 
 ////////////////////////////////////////////////////////////////////////////////
