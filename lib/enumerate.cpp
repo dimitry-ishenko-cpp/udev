@@ -11,7 +11,7 @@
 namespace impl
 {
 #include <libudev.h>
-void enumerate_deleter::operator()(udev_enumerate* en) { udev_enumerate_unref(en); }
+void enumerate_delete::operator()(udev_enumerate* en) { udev_enumerate_unref(en); }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
