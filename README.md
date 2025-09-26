@@ -15,7 +15,7 @@ See the [Usage](#usage) section below if you are planning to develop application
 Debian/Ubuntu/etc:
 
 ```shell
-sudo add-apt-repository ppa:ppa-verse/termin
+sudo add-apt-repository ppa:ppa-verse/public
 sudo apt install libudev++
 ```
 
