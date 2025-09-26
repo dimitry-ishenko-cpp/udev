@@ -41,7 +41,7 @@ sudo apt install libudev++-dev
 Stable version (requires [CMake](https://cmake.org/) >= 3.16):
 
 ```shell
-p=udev v=2.0
+p=udev v=3.0
 wget https://github.com/dimitry-ishenko-cpp/${p}/archive/v${v}.tar.gz
 tar xzf v${v}.tar.gz
 mkdir ${p}-${v}/build
