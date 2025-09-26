@@ -13,7 +13,7 @@
 namespace impl
 {
 #include <libudev.h>
-void monitor_deleter::operator()(udev_monitor* mon) { udev_monitor_unref(mon); }
+void monitor_delete::operator()(udev_monitor* mon) { udev_monitor_unref(mon); }
 }
 
 ////////////////////////////////////////////////////////////////////////////////

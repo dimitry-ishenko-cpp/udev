@@ -18,10 +18,8 @@
 
 namespace impl
 {
-
 struct udev_monitor;
-struct monitor_deleter { void operator()(udev_monitor*); };
-
+struct monitor_delete { void operator()(udev_monitor*); };
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,7 +66,7 @@ public:
 private:
     ////////////////////
     udev udev_;
-    std::unique_ptr<impl::udev_monitor, impl::monitor_deleter> mon_;
+    std::unique_ptr<impl::udev_monitor, impl::monitor_delete> mon_;
     int fd_ = -1;
 
     using msec = std::chrono::milliseconds;
