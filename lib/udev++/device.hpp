@@ -15,11 +15,9 @@
 
 namespace impl
 {
-
 struct udev;
 struct udev_device;
-struct device_deleter { void operator()(udev_device*); };
-
+struct device_delete { void operator()(udev_device*); };
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +62,7 @@ public:
 
 private:
     ////////////////////
-    std::unique_ptr<impl::udev_device, impl::device_deleter> dev_;
+    std::unique_ptr<impl::udev_device, impl::device_delete> dev_;
 
     explicit device(impl::udev_device* dev) noexcept : dev_{dev} { }
     device(impl::udev*, std::string_view);
