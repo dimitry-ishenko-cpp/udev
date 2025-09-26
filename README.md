@@ -1,4 +1,4 @@
-# udev++ – a Udev Library for C++
+# udev++ – a udev Library for C++
 
 The **udev++** library is a lightweight C++ wrapper for [libudev](https://www.freedesktop.org/software/systemd/man/libudev.html). It allows one to enumerate, monitor and introspect devices on the local system.
 

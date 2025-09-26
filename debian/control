@@ -19,7 +19,7 @@ Architecture: any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends},
-Description: udev++ – a Udev Library for C++
+Description: udev++ – a udev Library for C++
  The udev++ library is a lightweight C++ wrapper for libudev. It allows one to
  enumerate, monitor and introspect devices on the local system.
  .
