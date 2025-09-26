@@ -27,7 +27,7 @@ sudo apt install libudev++-dev
 RaspberryPi:
 
 ```shell
-sudo add-apt-repository -S deb https://ppa.launchpadcontent.net/ppa-verse/termin/ubuntu jammy main
+sudo add-apt-repository -S deb https://ppa.launchpadcontent.net/ppa-verse/public/ubuntu jammy main
 sudo apt install libudev++
 ```
 
