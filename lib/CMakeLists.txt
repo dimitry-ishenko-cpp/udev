@@ -9,6 +9,7 @@ pkg_search_module(udev REQUIRED IMPORTED_TARGET libudev)
 set(HEADERS
     udev++/device.hpp
     udev++/enumerate.hpp
+    udev++/error.hpp
     udev++/monitor.hpp
     udev++/udev.hpp
 )
@@ -17,6 +18,7 @@ set(OVERALL_HEADER udev++.hpp)
 set(SOURCES
     device.cpp
     enumerate.cpp
+    error.cpp
     monitor.cpp
     udev.cpp
 )
