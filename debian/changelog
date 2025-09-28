@@ -1,3 +1,11 @@
+udev++ (4.0.1) unstable; urgency=medium
+
+  * build-debian: fix
+  * Build Raspberry Pi packages
+  * Update README.md
+
+ -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Sun, 28 Sep 2025 18:44:52 -0400
+
 udev++ (4.0) unstable; urgency=medium
 
   * d/control: depend on libasio-dev
