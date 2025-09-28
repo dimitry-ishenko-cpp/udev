@@ -1,3 +1,13 @@
+udev++ (4.0) unstable; urgency=medium
+
+  * d/control: depend on libasio-dev
+  * monitor: integrate with asio
+  * Revert "monitor: monitor_delete -> monitor_deleter"
+  * Revert "enumerate: enumerate_delete -> enumerate_deleter"
+  * Revert "device: device_delete -> device_deleter"
+
+ -- Dimitry Ishenko <dimitry.ishenko@gmail.com>  Sun, 28 Sep 2025 17:02:32 -0400
+
 udev++ (3.0.1) unstable; urgency=medium
 
   * README: fix ppa
