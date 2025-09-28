@@ -5,6 +5,7 @@ Maintainer: Dimitry Ishenko <dimitry.ishenko@gmail.com>
 Build-Depends:
  debhelper-compat (= 13),
  cmake (>= 3.16),
+ libasio-dev,
  libudev-dev,
  pkgconf,
 Standards-Version: 4.6.2
