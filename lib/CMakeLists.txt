@@ -4,6 +4,7 @@ include(GNUInstallDirs)
 
 ####################
 find_package(PkgConfig REQUIRED)
+pkg_search_module(asio REQUIRED IMPORTED_TARGET asio)
 pkg_search_module(udev REQUIRED IMPORTED_TARGET libudev)
 
 set(HEADERS
@@ -23,7 +24,7 @@ set(SOURCES
     udev.cpp
 )
 
-set(DEPENDS PkgConfig::udev)
+set(DEPENDS PkgConfig::asio PkgConfig::udev)
 
 ####################
 set(name ${PROJECT_NAME})

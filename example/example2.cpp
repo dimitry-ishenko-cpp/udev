@@ -1,50 +1,42 @@
+#include <asio.hpp>
 #include <iostream>
 #include <udev++.hpp>
 
-using namespace std;
 using namespace std::chrono_literals;
 
 int main(int argc, char* argv[])
 {
-    udev::monitor monitor;
+    asio::io_context io;
+
+    udev::monitor monitor{io};
     monitor.match_device("block");
+    monitor.enable();
 
-    for(;;)
+    monitor.on_device_added([&](udev::device dev)
     {
-        if(auto device = monitor.try_get_for(30s))
+        if (dev.devtype() == "partition" && dev.property("ID_BUS") == "usb")
         {
-            switch(device.action())
-            {
-            case udev::added:
-                if(device.devtype() == "partition" && device.property("ID_BUS") == "usb")
-                {
-                    cout << "USB drive plugged in" << endl
-                         << "Path: " << device.syspath() << endl
-                         << "Node: " << device.devnode() << endl
-                         << "  FS: " << device.property("ID_FS_TYPE") << endl
-                         << "Name: " << device.sysname() << endl
-                         << "   #: " << device.sysnum () << endl;
-                    cout << endl;
-                }
-                break;
-
-            case udev::removed:
-                if(device.devtype() == "partition" && device.property("ID_BUS") == "usb")
-                {
-                    cout << "USB drive " << device.devnode() << " unplugged" << endl;
-                    cout << endl;
-                }
-                break;
-
-            default:;
-            }
+            std::cout << "USB drive plugged in"
+                      << "\n  syspath: " << dev.syspath()
+                      << "\n  devnode: " << dev.devnode()
+                      << "\n  filesys: " << dev.property("ID_FS_TYPE")
+                      << "\n  sysname: " << dev.sysname()
+                      << "\n  sysnum : " << dev.sysnum ();
+            std::cout << std::endl;
         }
-        else
+    });
+
+    monitor.on_device_removed([&](udev::device dev)
+    {
+        if (dev.devtype() == "partition" && dev.property("ID_BUS") == "usb")
         {
-            cout << "Nothing seems to be happening" << endl;
-            break;
+            std::cout << "USB drive unplugged, devnode: " << dev.devnode();
+            std::cout << std::endl;
         }
-    }
+    });
 
+    while (io.run_one_for(30s));
+
+    std::cout << "Nothing seems to be happening - exiting" << std::endl;
     return 0;
 }
