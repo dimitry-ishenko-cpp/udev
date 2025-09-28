@@ -9,6 +9,7 @@ See the [Usage](#usage) section below if you are planning to develop application
 ### Prerequisites
 
 * libudev (provided by [systemd](https://www.freedesktop.org/wiki/Software/systemd/))
+* [Asio](https://think-async.com/Asio/)
 
 ### Binary
 
@@ -79,7 +80,9 @@ find_package(udev++ REQUIRED)
 target_link_libraries(marvin PRIVATE udev++::udev++)
 ```
 
-to find the library and link with it. **udev++** additionally exports `udev++::udev++_static` and `udev++::udev++_shared` targets, which you can use to explicitly link with the static and shared versions of the library respectively.
+to find the library and link with it.
+
+**udev++** additionally exports `udev++::udev++_static` and `udev++::udev++_shared` targets, which you can use to explicitly link with the static and shared versions of the library respectively.
 
 ## Description
 
